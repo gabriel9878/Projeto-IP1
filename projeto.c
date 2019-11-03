@@ -13,12 +13,25 @@ typedef struct
     float preco;
     int quantidade;
 
-} PRODUTO;
+}PRODUTO;
+
+//imprime a interface do menu.
+void menu(){
+
+        printf("mercadinho do sidney!!\n\n");
+        printf("1-Inserir um produto\n");
+        printf("2-Buscar um produto\n");
+        printf("3-\n");
+        printf("4-\n");
+        printf("5-\n");
+
+}
 
 /*Função que insere um produto no mercado(primeiro parametro passa a estrutura produto a ser preenchida e o segundo passa
  um ponteiro que contém o numero da posição do produto no vetor de estrutura).*/
-PRODUTO inserirProduto(PRODUTO produto,int *posicaoP)
+PRODUTO inserirProduto(int *posicaoP)
 {
+    PRODUTO produto;
 
     printf("digite o id do produto que deseja registrar\n");
     scanf("%d",&produto.id);
@@ -31,9 +44,37 @@ PRODUTO inserirProduto(PRODUTO produto,int *posicaoP)
 
     printf("digite a quantidade do produto que deseja registrar\n");
     scanf("%d",&produto.quantidade);
+    printf("\n");
 
-    *posicaoP++;
+    (*posicaoP)++;
     return produto;
+
+}
+
+//Função que busca um produto do mercado.
+
+void buscarProduto(PRODUTO produtosptr[20],int *quantp){
+
+PRODUTO comparadorS;
+
+printf("Digite o id do produto que deseja buscar!\n");
+scanf("%d",&comparadorS.id);
+int cont = 0;
+int i;
+
+while(cont<(*quantp)){
+
+if((produtosptr[cont]).id == comparadorS.id) {
+
+    printf("Produto encontrado!!\n");
+    printf("NOME: %s\n",(produtosptr[cont]).nome);
+    printf("ID : %d\n",(produtosptr[cont]).id);
+    printf("PRECO : %f\n",(produtosptr[cont]).preco);
+    printf("QUANTIDADE : %d\n",(produtosptr[cont]).quantidade);
+
+}
+cont++;
+}
 
 }
 
@@ -45,10 +86,6 @@ int main ()
 //inicializa variável que contém a posição do produto que será armazenado no vetor.
 
     int quantp = 0;
-
-//Inicializa ponteiro que contém a posição do produto que será armazenado no vetor.
-
-    int *pquantp = &quantp;
 
 //Declaração de um vetor de estrutura que contém as vagas para os produtos.
 
@@ -75,20 +112,16 @@ int main ()
     produto21.preco = 2.0;
     produto21.quantidade = 30;
 
+    printf("   Bem Vindo ao ");
+
 //Loop que fará com que o menu apareça constantemente enquanto o programa estiver rodando.
 
     do
     {
 
+
 //Interface do menu.
-
-        printf("Bem vindo ao mercadinho do sidney!!\n");
-        printf("1-Inserir um produto\n");
-        printf("2-\n");
-        printf("3-\n");
-        printf("4-\n");
-        printf("5-\n");
-
+menu();
 
 //Armazenamento da variável que controla o menu.
         scanf("%i",&key);
@@ -101,15 +134,17 @@ int main ()
         case 1 :
         {
 
-            inserirProduto(produtos[quantp],*pquantp);
+
+          produtos[quantp] = inserirProduto(&quantp);
             break;
+
         }
 
-//opção 2.
+//opção 2(Buscar um produto).
         case 2 :
         {
 
-            printf("voce escolheu a opcao 2\n");
+            buscarProduto(produtos,&quantp);
             break;
         }
 
